@@ -9,10 +9,12 @@ public class Menu {
     private int input;
     private boolean keeplaying = true;
 
+    DatabaseConnection dc = new DatabaseConnection();
+
     //New instancer of the classes as objects, to call methods from there
-    SubMenuAvailableCars subMenuAvailabelCars = new SubMenuAvailableCars();
-    SubMenuRental subMenuRental = new SubMenuRental();
-    SubMenuOrderOverview subMenuOrderOverview = new SubMenuOrderOverview();
+    SubMenuAvailableCars subMenuAvailabelCars = new SubMenuAvailableCars(dc);
+    SubMenuRental subMenuRental = new SubMenuRental(dc);
+    SubMenuOrderOverview subMenuOrderOverview = new SubMenuOrderOverview(dc);
 
 
     public void menuHeader() { //The method for the pretty consol based UI
@@ -21,7 +23,7 @@ public class Menu {
         System.out.println("  ———————————————————————————————————————————————————————————————————————————————————————————————————————————————");
 
         System.out.println();
-        System.out.printf("  %-25s   %-30s    %5s %n","R E N T A L                          ","       A V A I L A B E L   C A R S ", "        O R D E R  O V E R V I E W       ");
+        System.out.printf("  %-25s   %-30s    %5s %n","R E N T A L                          ","       A V A I L A B L E   C A R S ", "        O R D E R  O V E R V I E W       ");
 
         System.out.printf("  %-38s  %-37s %-50s ","Sign Up","       Luxury car  ",  "         Cancel rental  ");
         System.out.println();
@@ -33,7 +35,7 @@ public class Menu {
         System.out.println( "  I N F O R M A T I O N ");
         System.out.println(" - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -");
         System.out.println("\n  Choose 1 (Rental)");
-        System.out.println("  Choose 2 (Availble cars )");
+        System.out.println("  Choose 2 (Available cars )");
         System.out.println("  Choose 3 (Order overview )");
         System.out.print("\n  Enter:");
     }

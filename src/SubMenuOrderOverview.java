@@ -1,3 +1,4 @@
+import java.sql.SQLException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -7,11 +8,17 @@ public class SubMenuOrderOverview {
     private int userInput;
 
     Scanner sc = new Scanner(System.in); //Scanner
+    DatabaseConnection dc;
 
-    RentalInformation rentalInformation = new RentalInformation();
+    CarOverview rentalInformation = new CarOverview(dc);
 
     public void printMenu(String leadText) {
         System.out.println(leadText);
+    }
+
+
+    public SubMenuOrderOverview (DatabaseConnection dc) {
+        this.dc = dc;
     }
 
     public void orderReaderChoice(){
@@ -24,22 +31,21 @@ public class SubMenuOrderOverview {
             userInput = sc.nextInt();
             switch (userInput){
                 case 1 -> {
-                    System.out.println("Cancel rental");
-                    rentalInformation.EndRental();
+                    rentalInformation.endRental();
                 }
 
                 case 2  -> {
-                    System.out.println(" Prolog rental");
                     rentalInformation.prolongRental();
                 }
 
                 case 3-> System.out.println("  Exit");
-                default->
-                        System.out.println(" You typed something the system could not understand");
+                default-> System.out.println(" You typed something the system could not understand");
             }
 
         }catch (InputMismatchException e){
             System.out.println("Waring you wrote something our system dose not contain ");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
 
     }

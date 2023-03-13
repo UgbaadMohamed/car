@@ -4,14 +4,18 @@ import java.util.Scanner;
 
 public class SubMenuAvailableCars {
 
-    //Attributes
     private int userInput;
 
     Scanner sc = new Scanner(System.in); //Scanner
 
-    //New instancer of the classes as objects, to call methods from there
-    RentalInformation ri = new RentalInformation();
-    Cars cars = new Cars();
+    DatabaseConnection dc;
+    CarOverview ri = new CarOverview(dc);
+    Cars cars = new Cars(dc);
+
+
+    public SubMenuAvailableCars (DatabaseConnection dc) {
+        this.dc = dc;
+    }
 
     public void printMenu(String leadText) {
         System.out.println(leadText);
@@ -29,8 +33,8 @@ public class SubMenuAvailableCars {
             System.out.println( "  A V A I L A B E L   C A R S");
             System.out.print(" - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -- -");
             carGroupDescription();
-            printMenu("\n  Choose 1. (Search for car group) \n " + " Choose 2. (Search for cars based on brand)\n  " + "Choose 3. (View all available cars)\n  Choose 4. 2(Search for cars that are currently rented)\n" +
-                    "  Choose 5  (Exit)\n" );
+            printMenu("\n  Choose 1. (Search for car group) \n " + "Choose 2. (View all available cars)\n  Choose 3. (Search for cars that are currently rented)\n" +
+                    "  Choose 4  (Exit)\n" );
             System.out.print("  Enter:");
             userInput = sc.nextInt();
             switch (userInput){
@@ -39,17 +43,12 @@ public class SubMenuAvailableCars {
                     cars.carType();
                 }
                 case 2  -> {
-                    ri.searchNewestCar();
+                    ri.availableCars();
                 }
                 case 3  -> {
-                    ri.availalbeCars();
-                }
-
-                case 4  -> {
                     ri.rentedCars();
                 }
-
-                case 5-> System.out.println("  Exit");
+                case 4-> System.out.println("  Exit");
                 default->
                         System.out.println(" You typed something the system could not understand");
             }
